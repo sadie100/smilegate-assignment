@@ -45,14 +45,16 @@ export default () => {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
                       <Dialog.Title
                         as="h3"
                         className="text-base font-semibold leading-6 text-gray-900"
                       >
                         {title}
                       </Dialog.Title>
-                      <div className="mt-2">{content}</div>
+                      <div className="mt-2 w-full flex justify-center">
+                        {content}
+                      </div>
                     </div>
                   </div>
                 </div>
