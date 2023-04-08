@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ModalProvider } from "@/contexts/modalContext";
-import Modal from "@/components/Modal";
+import Modal from "@/components/common/Modal";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

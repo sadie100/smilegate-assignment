@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Header from "@/components/Header";
-import Button from "@/components/Button";
+import Header from "@/components/common/Header";
+import Button from "@/components/common/Button";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
 import CouponForm from "@/components/pages/advanceReserve/CouponForm";
