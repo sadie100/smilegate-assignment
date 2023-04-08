@@ -19,7 +19,9 @@ const AdvanceReservation = () => {
           },
           confirm: {
             label: "발급하기",
-            onClick: () => alert("dd"),
+            onClick: (data) => {
+              alert("dd");
+            },
           },
         },
       },
