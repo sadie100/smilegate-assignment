@@ -1,16 +1,19 @@
 import { ReactNode, createContext, useReducer } from "react";
 
-interface InitialStateType {
-  isOpen: boolean;
+interface StateType {
   title: string;
   content: React.ReactElement;
   buttons: {
     cancel?: { label: string };
     confirm?: {
       label: string;
-      onClick: () => void;
+      onClick: (data: any) => void;
     };
   };
+}
+
+interface InitialStateType extends StateType {
+  isOpen: boolean;
 }
 
 const initialState: InitialStateType = {
@@ -23,17 +26,7 @@ const initialState: InitialStateType = {
 type ActionType =
   | {
       type: "open";
-      payload: {
-        title: string;
-        content: React.ReactElement;
-        buttons: {
-          cancel?: { label: string };
-          confirm?: {
-            label: string;
-            onClick: () => void;
-          };
-        };
-      };
+      payload: StateType;
     }
   | {
       type: "close";
