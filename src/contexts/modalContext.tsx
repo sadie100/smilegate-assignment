@@ -2,18 +2,38 @@ import { ReactNode, createContext, useReducer } from "react";
 
 interface InitialStateType {
   isOpen: boolean;
-  modalId: string;
+  title: string;
+  content: React.ReactElement;
+  buttons: {
+    cancel?: { label: string };
+    confirm?: {
+      label: string;
+      onClick: () => void;
+    };
+  };
 }
 
 const initialState: InitialStateType = {
   isOpen: false,
-  modalId: "",
+  title: "",
+  content: <></>,
+  buttons: {},
 };
 
 type ActionType =
   | {
       type: "open";
-      payload: string;
+      payload: {
+        title: string;
+        content: React.ReactElement;
+        buttons: {
+          cancel?: { label: string };
+          confirm?: {
+            label: string;
+            onClick: () => void;
+          };
+        };
+      };
     }
   | {
       type: "close";
@@ -25,10 +45,11 @@ const reducer = (
 ): InitialStateType => {
   switch (action.type) {
     case "open":
+      // const {title, content, buttons} = action.payload
       return {
         ...state,
+        ...action.payload,
         isOpen: true,
-        modalId: action.payload,
       };
     case "close":
       return {
