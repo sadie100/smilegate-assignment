@@ -3,9 +3,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { ModalContext } from "@/contexts/modalContext";
 
-export default function Example({ modalId }: { modalId: string }) {
+export default () => {
   const { state, dispatch } = useContext(ModalContext);
-  const { isOpen } = state;
+  const { isOpen, modalId } = state;
   const handleOpen = () => {
     dispatch({ type: "open", payload: modalId });
   };
@@ -95,4 +95,4 @@ export default function Example({ modalId }: { modalId: string }) {
       </Dialog>
     </Transition.Root>
   );
-}
+};

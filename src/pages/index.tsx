@@ -5,7 +5,7 @@ import { ModalProvider } from "@/contexts/modalContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function Home() {
+const Home = () => {
   const router = useRouter();
   const handleAdvanceReserve = () => {
     router.push("/coupons/advance-reservation");
@@ -29,6 +29,6 @@ function Home() {
       </main>
     </ModalProvider>
   );
-}
+};
 
 export default Home;
