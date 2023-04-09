@@ -1,7 +1,18 @@
-import { useForm, useFormContext } from "react-hook-form";
-import { FormItemType } from "@/types";
+import {
+  useForm,
+  useFormContext,
+  FieldValues,
+  RegisterOptions,
+} from "react-hook-form";
 import FormLabel from "@/components/common/FormLabel";
 
+type FormItemType = {
+  label?: string;
+  type: string;
+  name: string;
+  validation: RegisterOptions<FieldValues, string> | undefined;
+  styleClass?: string;
+};
 const FormItem = ({
   type,
   name,
@@ -24,7 +35,7 @@ const FormItem = ({
       />
       {errors[name] && (
         <span className="text-xs text-red-600" role="alert">
-          {errorMessage}
+          {errors[name]!.message as string}
         </span>
       )}
     </div>

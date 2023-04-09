@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import FormLabel from "@/components/common/FormLabel";
-import { useContext } from "react";
+import { SyntheticEvent, useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
 import Form from "@/components/common/Form";
 import FormItem from "@/components/common/FormItem";
@@ -19,14 +19,19 @@ const CouponForm = () => {
       <FormItem
         name="name"
         type="text"
-        validation={{ required: true }}
+        validation={{ required: "이름을 입력해 주세요." }}
         label="이름"
-        errorMessage="이름을 입력해 주세요."
       />
       <FormItem
         name="phone"
         type="text"
-        validation={{ required: true }}
+        validation={{
+          required: "휴대전화 번호를 입력해 주세요.",
+          pattern: {
+            value: /[0-9]{3}-[0-9]{4}-[0-9]{4}/,
+            message: "올바른 형식의 번호를 입력해 주세요.",
+          },
+        }}
         label="휴대전화"
       />
     </Form>
