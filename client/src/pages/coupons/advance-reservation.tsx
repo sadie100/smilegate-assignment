@@ -4,9 +4,30 @@ import Button from "@/components/common/Button";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
 import CouponForm from "@/components/pages/advanceReserve/CouponForm";
+import axios from "axios";
+
+type ReservationType = {
+  name: string;
+  phone: string;
+};
 
 const AdvanceReservation = () => {
   const { state, dispatch } = useContext(ModalContext);
+  const handleReserve = async (data: ReservationType) => {
+    try {
+      console.log(data);
+      const res = await axios.post("http://localhost:8000/api/reserve", data);
+      if (res.status === 200) {
+        alert(`쿠폰 발급이 완료되었습니다.\n발급된 쿠폰 : ${res.data}`);
+        dispatch({ type: "close" });
+      } else {
+        alert(`이미 발급이 완료된 번호입니다.\n발급된 쿠폰 : ${res.data}`);
+      }
+    } catch (e) {
+      console.log(e);
+      alert("오류가 발생했습니다.");
+    }
+  };
   const handleOpen = () => {
     dispatch({
       type: "open",
@@ -20,9 +41,7 @@ const AdvanceReservation = () => {
           confirm: {
             label: "발급하기",
             form: "CouponForm",
-            onClick: (data) => {
-              alert("dd");
-            },
+            onClick: handleReserve,
           },
         },
       },
