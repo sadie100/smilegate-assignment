@@ -5,6 +5,7 @@ import {
   RegisterOptions,
 } from "react-hook-form";
 import FormLabel from "@/components/common/FormLabel";
+import { CSSProperties } from "react";
 
 type FormItemType = {
   label?: string;
@@ -18,7 +19,7 @@ const FormItem = ({
   name,
   validation,
   label,
-  errorMessage,
+  styleClass,
 }: FormItemType) => {
   const {
     register,
@@ -29,8 +30,9 @@ const FormItem = ({
     <div className="flex flex-col justify-stretch items-stretch w-full">
       {label && <FormLabel>{label}</FormLabel>}
       <input
-        className="rounded border-2 border-solid border-slate-300 p-1"
+        className={`rounded border-2 border-solid border-slate-300 appearance-none text-gray-700 placeholder-gray-400 w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline ${styleClass} `}
         type={type}
+        placeholder={type === "text" ? "" : "000-0000-0000"}
         {...register(name, validation)}
       />
       {errors[name] && (
