@@ -14,23 +14,19 @@ const CouponForm = () => {
   const onSubmit = confirm!.onClick;
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-stretch items-stretch gap-1 w-full"
-    >
-      <FormLabel>이름</FormLabel>
-      <input
-        className="rounded border-2 border-solid border-slate-300 p-1 mb-2"
+    <Form id="CouponForm" onSubmit={onSubmit}>
+      <FormItem
+        name="name"
         type="text"
         {...register("name")}
       />
-      <FormLabel>휴대전화</FormLabel>
-      <input
-        className="rounded border-2 border-solid border-slate-300 p-1"
+      <FormItem
+        name="phone"
         type="text"
-        {...register("phone")}
+        validation={{ required: true }}
+        label="휴대전화"
       />
-    </form>
+    </Form>
   );
 };
 

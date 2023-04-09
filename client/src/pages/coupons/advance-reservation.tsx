@@ -19,6 +19,7 @@ const AdvanceReservation = () => {
           },
           confirm: {
             label: "발급하기",
+            form: "CouponForm",
             onClick: (data) => {
               alert("dd");
             },

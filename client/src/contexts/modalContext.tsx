@@ -8,6 +8,7 @@ interface StateType {
     confirm?: {
       label: string;
       onClick: (data: any) => void;
+      form?: string;
     };
   };
 }
