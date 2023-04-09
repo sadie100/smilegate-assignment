@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import FormLabel from "@/components/common/FormLabel";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
+import Form from "@/components/common/Form";
+import FormItem from "@/components/common/FormItem";
 
 const CouponForm = () => {
-  const { register, handleSubmit } = useForm();
   const {
     state: {
       buttons: { confirm },
@@ -18,7 +19,9 @@ const CouponForm = () => {
       <FormItem
         name="name"
         type="text"
-        {...register("name")}
+        validation={{ required: true }}
+        label="이름"
+        errorMessage="이름을 입력해 주세요."
       />
       <FormItem
         name="phone"
