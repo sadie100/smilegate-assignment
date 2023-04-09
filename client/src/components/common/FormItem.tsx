@@ -1,25 +1,19 @@
-import {
-  useForm,
-  useFormContext,
-  FieldValues,
-  RegisterOptions,
-} from "react-hook-form";
+import { useFormContext, FieldValues, RegisterOptions } from "react-hook-form";
 import FormLabel from "@/components/common/FormLabel";
-import { CSSProperties } from "react";
 
 type FormItemType = {
   label?: string;
   type: string;
   name: string;
   validation: RegisterOptions<FieldValues, string> | undefined;
-  styleClass?: string;
+  placeholder?: string;
 };
 const FormItem = ({
   type,
   name,
   validation,
   label,
-  styleClass,
+  placeholder,
 }: FormItemType) => {
   const {
     register,
@@ -27,12 +21,13 @@ const FormItem = ({
   } = useFormContext();
 
   return (
-    <div className="flex flex-col justify-stretch items-stretch w-full">
+    <div className="flex flex-col justify-stretch items-stretch w-full gap-1">
       {label && <FormLabel>{label}</FormLabel>}
       <input
-        className={`rounded border-2 border-solid border-slate-300 appearance-none text-gray-700 placeholder-gray-400 w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline ${styleClass} `}
+        className="rounded border-2 border-solid border-slate-300 appearance-none text-gray-700 placeholder:text-xs w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         type={type}
-        placeholder={type === "text" ? "" : "000-0000-0000"}
+        placeholder={placeholder}
+        maxLength={name === "phone" ? 13 : undefined}
         {...register(name, validation)}
       />
       {errors[name] && (

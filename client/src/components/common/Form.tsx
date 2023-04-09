@@ -1,7 +1,5 @@
-import { FormProvider, useForm } from "react-hook-form";
-import FormLabel from "@/components/common/FormLabel";
 import { ReactNode } from "react";
-
+import { useFormContext } from "react-hook-form";
 type FormPropType = {
   onSubmit: (data: any) => void;
   children: ReactNode;
@@ -9,17 +7,16 @@ type FormPropType = {
 };
 
 const Form = ({ onSubmit, id, children }: FormPropType) => {
-  const methods = useForm();
+  const { handleSubmit } = useFormContext();
+
   return (
-    <FormProvider {...methods}>
-      <form
-        id={id}
-        onSubmit={methods.handleSubmit(onSubmit)}
-        className="flex flex-col justify-stretch items-stretch gap-2 w-full"
-      >
-        {children}
-      </form>
-    </FormProvider>
+    <form
+      id={id}
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col justify-stretch items-stretch gap-3 w-full"
+    >
+      {children}
+    </form>
   );
 };
 export default Form;
