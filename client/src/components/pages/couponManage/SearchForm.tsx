@@ -1,25 +1,21 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { useContext } from "react";
-import { ModalContext } from "@/contexts/modalContext";
 import FormItem from "@/components/common/FormItem";
+import { useContext } from "react";
+import { CouponContext } from "@/contexts/couponContext";
 
-const SearchForm = () => {
+const SearchForm = ({ handleSearch }: { handleSearch: () => void }) => {
   const {
-    state: {
-      buttons: { confirm },
-    },
-  } = useContext(ModalContext);
+    state: { search },
+    dispatch,
+  } = useContext(CouponContext);
   const methods = useForm();
   const { watch, setValue, handleSubmit } = methods;
-  const onSubmit = (data: any) => {
-    console.log("검색");
-  };
 
   return (
     <FormProvider {...methods}>
       <form
         id="SearchForm"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleSearch)}
         className="flex justify-center items-center gap-3 w-[80%]"
       >
         <FormItem
