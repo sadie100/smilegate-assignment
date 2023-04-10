@@ -1,8 +1,6 @@
 import SearchForm from "@/components/pages/couponManage/SearchForm";
 import Header from "@/components/common/Header";
-import FormLabel from "@/components/common/FormLabel";
-import Form from "@/components/common/Form";
-import FormItem from "@/components/common/FormItem";
+import Link from "next/link";
 
 const Management = () => {
   return (
@@ -10,6 +8,7 @@ const Management = () => {
       <Header>쿠폰 관리 페이지</Header>
       <SearchForm />
       <table />
+      <Link href="/">뒤로 가기</Link>
     </div>
   );
 };

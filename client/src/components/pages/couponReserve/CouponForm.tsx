@@ -1,7 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
-import Form from "@/components/common/Form";
 import FormItem from "@/components/common/FormItem";
 
 const CouponForm = () => {
@@ -11,12 +10,16 @@ const CouponForm = () => {
     },
   } = useContext(ModalContext);
   const methods = useForm();
-  const { watch, setValue } = methods;
+  const { watch, setValue, handleSubmit } = methods;
   const onSubmit = confirm!.onClick;
 
   return (
     <FormProvider {...methods}>
-      <Form id="CouponForm" onSubmit={onSubmit}>
+      <form
+        id="CouponForm"
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-stretch items-stretch gap-3 w-full"
+      >
         <FormItem
           name="name"
           type="text"
@@ -45,7 +48,7 @@ const CouponForm = () => {
           label="휴대전화"
           placeholder="휴대전화 번호 11자리를 입력해 주세요."
         />
-      </Form>
+      </form>
     </FormProvider>
   );
 };

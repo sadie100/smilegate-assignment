@@ -1,7 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
-import Form from "@/components/common/Form";
 import FormItem from "@/components/common/FormItem";
 
 const SearchForm = () => {
@@ -11,14 +10,18 @@ const SearchForm = () => {
     },
   } = useContext(ModalContext);
   const methods = useForm();
-  const { watch, setValue } = methods;
+  const { watch, setValue, handleSubmit } = methods;
   const onSubmit = (data: any) => {
     console.log("검색");
   };
 
   return (
     <FormProvider {...methods}>
-      <Form id="CouponForm" onSubmit={onSubmit}>
+      <form
+        id="SearchForm"
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-stretch items-stretch gap-3 w-full"
+      >
         <FormItem
           name="name"
           type="search"
@@ -26,7 +29,7 @@ const SearchForm = () => {
           placeholder="이름을 입력해 주세요."
         />
         <button>검색</button>
-      </Form>
+      </form>
     </FormProvider>
   );
 };
