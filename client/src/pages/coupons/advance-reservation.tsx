@@ -4,7 +4,7 @@ import Button from "@/components/common/Button";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
 import CouponForm from "@/components/pages/advanceReserve/CouponForm";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 type ReservationType = {
   name: string;
@@ -17,15 +17,18 @@ const AdvanceReservation = () => {
     try {
       console.log(data);
       const res = await axios.post("http://localhost:8000/api/reserve", data);
+      const { couponId } = res.data;
       if (res.status === 200) {
-        alert(`쿠폰 발급이 완료되었습니다.\n발급된 쿠폰 : ${res.data}`);
+        alert(`쿠폰 발급이 완료되었습니다.\n발급된 쿠폰 : ${couponId}`);
         dispatch({ type: "close" });
-      } else {
-        alert(`이미 발급이 완료된 번호입니다.\n발급된 쿠폰 : ${res.data}`);
       }
-    } catch (e) {
-      console.log(e);
-      alert("오류가 발생했습니다.");
+    } catch (e: unknown) {
+      if (e instanceof AxiosError && e.response && e.response.data) {
+        alert(e.response.data);
+      } else {
+        console.log(e);
+        alert("오류가 발생했습니다.");
+      }
     }
   };
   const handleOpen = () => {
