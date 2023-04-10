@@ -3,7 +3,7 @@ import Header from "@/components/common/Header";
 import Button from "@/components/common/Button";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
-import CouponForm from "@/components/pages/advanceReserve/CouponForm";
+import CouponForm from "@/components/pages/couponReserve/CouponForm";
 import axios, { AxiosError } from "axios";
 
 type ReservationType = {
@@ -11,11 +11,10 @@ type ReservationType = {
   phone: string;
 };
 
-const AdvanceReservation = () => {
+const Reservation = () => {
   const { state, dispatch } = useContext(ModalContext);
   const handleReserve = async (data: ReservationType) => {
     try {
-      console.log(data);
       const res = await axios.post("http://localhost:8000/api/reserve", data);
       const { couponId } = res.data;
       if (res.status === 200) {
@@ -31,22 +30,25 @@ const AdvanceReservation = () => {
       }
     }
   };
+
+  const modalButtons = {
+    cancel: {
+      label: "취소",
+    },
+    confirm: {
+      label: "발급하기",
+      form: "CouponForm",
+      onClick: handleReserve,
+    },
+  };
+
   const handleOpen = () => {
     dispatch({
       type: "open",
       payload: {
         title: "쿠폰 발급하기",
         content: <CouponForm />,
-        buttons: {
-          cancel: {
-            label: "취소",
-          },
-          confirm: {
-            label: "발급하기",
-            form: "CouponForm",
-            onClick: handleReserve,
-          },
-        },
+        buttons: modalButtons,
       },
     });
   };
@@ -64,4 +66,4 @@ const AdvanceReservation = () => {
   );
 };
 
-export default AdvanceReservation;
+export default Reservation;
