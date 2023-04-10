@@ -5,7 +5,7 @@ type FormItemType = {
   label?: string;
   type: string;
   name: string;
-  validation: RegisterOptions<FieldValues, string> | undefined;
+  validation?: RegisterOptions<FieldValues, string> | undefined;
   placeholder?: string;
 };
 const FormItem = ({
