@@ -53,3 +53,17 @@ export const reserve = async (req: Request, res: Response) => {
     res.status(500).send(err);
   }
 };
+
+export const search = async (req: Request, res: Response) => {
+  //logic
+  try {
+    console.log("들어옵니다.");
+    const searching = req.query;
+
+    console.log(searching);
+    res.status(200).end();
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+};

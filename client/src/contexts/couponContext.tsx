@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useReducer } from "react";
+import axios, { AxiosError } from "axios";
+import { ReactNode, createContext, useEffect, useReducer } from "react";
 
 interface ICoupon {
   name: string;
@@ -58,6 +59,32 @@ export const CouponContext = createContext<ContextType>({
 
 export const CouponProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleSearch = async () => {
+    try {
+      console.log("요청");
+      const res = await axios.get("http://localhost:8000/api/search", {
+        params: state.search,
+      });
+      const datas = res.data;
+      if (res.status === 200) {
+        dispatch({ type: "setData", payload: datas });
+      }
+    } catch (e: unknown) {
+      if (e instanceof AxiosError && e.response && e.response.data) {
+        alert(e.response.data);
+      } else {
+        console.log(e);
+        alert("오류가 발생했습니다.");
+      }
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      await handleSearch();
+    })();
+  }, [state.search]);
 
   return (
     <CouponContext.Provider value={{ state, dispatch }}>

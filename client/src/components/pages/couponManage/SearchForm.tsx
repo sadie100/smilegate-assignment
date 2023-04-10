@@ -3,13 +3,18 @@ import FormItem from "@/components/common/FormItem";
 import { useContext } from "react";
 import { CouponContext } from "@/contexts/couponContext";
 
-const SearchForm = ({ handleSearch }: { handleSearch: () => void }) => {
-  const {
-    state: { search },
-    dispatch,
-  } = useContext(CouponContext);
+const SearchForm = () => {
+  const { dispatch } = useContext(CouponContext);
   const methods = useForm();
-  const { watch, setValue, handleSubmit } = methods;
+  const { handleSubmit } = methods;
+
+  const handleSearch = (data: any) => {
+    const { searchStr } = data;
+    dispatch({
+      type: "setSearch",
+      payload: searchStr,
+    });
+  };
 
   return (
     <FormProvider {...methods}>
@@ -19,7 +24,7 @@ const SearchForm = ({ handleSearch }: { handleSearch: () => void }) => {
         className="flex justify-center items-center gap-3 w-[80%]"
       >
         <FormItem
-          name="name"
+          name="searchStr"
           type="search"
           placeholder="검색할 내용을 입력해 주세요."
         />
