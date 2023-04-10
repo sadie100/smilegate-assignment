@@ -20,15 +20,19 @@ const SearchForm = () => {
       <form
         id="SearchForm"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-stretch items-stretch gap-3 w-full"
+        className="flex justify-center items-center gap-3 w-[80%]"
       >
         <FormItem
           name="name"
           type="search"
-          label="검색하기"
-          placeholder="이름을 입력해 주세요."
+          placeholder="검색할 내용을 입력해 주세요."
         />
-        <button>검색</button>
+        <button
+          type="submit"
+          className="w-fix break-keep rounded-md bg-main-600 py-2.5 px-3 text-sm font-semibold text-white shadow-sm hover:bg-main-500 text-lg"
+        >
+          검색
+        </button>
       </form>
     </FormProvider>
   );
