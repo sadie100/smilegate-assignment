@@ -8,7 +8,15 @@ interface ICoupon extends Document {
 
 const CouponSchema: Schema = new Schema({
   name: { type: String, required: true },
-  phone: { type: String, required: true },
+  phone: {
+    type: String,
+    required: true,
+    get: (data: string) =>
+      data
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+        .replace(/(\-{1,2})$/g, ""),
+    set: (data: string) => data.replaceAll("-", ""),
+  },
   couponId: { type: String, required: true },
 });
 
