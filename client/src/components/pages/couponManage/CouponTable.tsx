@@ -8,44 +8,44 @@ const CouponTable = () => {
   } = useContext(CouponContext);
   console.log(data);
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-              이름
-            </th>
-            <th scope="col" className="px-6 py-3">
-              휴대전화 번호
-            </th>
-            <th scope="col" className="px-6 py-3">
-              쿠폰 번호
-            </th>
-            <th scope="col" className="px-6 py-3">
-              발급 일자
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((values, idx) => {
-            return (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+    <div>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                이름
+              </th>
+              <th scope="col" className="px-6 py-3">
+                휴대전화 번호
+              </th>
+              <th scope="col" className="px-6 py-3">
+                쿠폰 번호
+              </th>
+              <th scope="col" className="px-6 py-3">
+                발급 일자
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(({ name, phone, couponId, createdAt }, idx) => {
+              return (
+                <tr
+                  key={idx}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
-                  Apple MacBook Pro 17"
-                </th>
-                <td className="px-6 py-4">Silver</td>
-                <td className="px-6 py-4">Laptop</td>
-                <td className="px-6 py-4">$2999</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                  <td className="px-6 py-4">{name}</td>
+                  <td className="px-6 py-4">{phone}</td>
+                  <td className="px-6 py-4">{couponId}</td>
+                  <td className="px-6 py-4">{createdAt}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <nav
-        className="flex items-center justify-between pt-4"
+        className="flex items-center justify-center pt-4"
         aria-label="Table navigation"
       >
         <ul className="inline-flex items-center -space-x-px">

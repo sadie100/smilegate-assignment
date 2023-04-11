@@ -21,7 +21,7 @@ const SearchForm = () => {
       <form
         id="SearchForm"
         onSubmit={handleSubmit(handleSearch)}
-        className="flex justify-center items-center gap-3 w-[80%]"
+        className="flex justify-center items-center gap-3 w-full"
       >
         <FormItem
           name="searchStr"

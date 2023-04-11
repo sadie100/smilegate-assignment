@@ -17,8 +17,10 @@ const Management = () => {
       <Header>쿠폰 관리 페이지</Header>
       <Link href="/">뒤로 가기</Link>
       <CouponProvider>
-        <SearchForm />
-        <CouponTable />
+        <div className="flex min-h-screen flex-col gap-5 w-[80%]">
+          <SearchForm />
+          <CouponTable />
+        </div>
       </CouponProvider>
     </div>
   );
