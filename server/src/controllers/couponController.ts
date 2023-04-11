@@ -2,6 +2,13 @@ import { Request, Response } from "express";
 import Coupon from "../models/Coupon";
 import { createHash } from "crypto";
 
+const pageOption = {
+  limit: 10,
+  collation: {
+    locale: "ko",
+  },
+};
+
 const generateCouponId = (name: string, phone: string) => {
   // const dateStr = Date.now().toString();
   const baseData = `${name}${phone}`;
@@ -57,26 +64,30 @@ export const reserve = async (req: Request, res: Response) => {
 export const search = async (req: Request, res: Response) => {
   //logic
   try {
-    const searching = req.query;
+    const { search, category, currentPage } = req.query;
 
-    const coupons = await Coupon.aggregate([
-      {
-        $match: searching,
-      },
-      {
-        $project: {
-          name: 1,
-          phone: 1,
-          couponId: 1,
-          createdAt: {
-            $dateToString: {
-              format: "%Y/%m/%d %H:%M",
-              date: "$createdAt",
-            },
-          },
-        },
-      },
-    ]);
+    const coupons = await Coupon.paginate(
+      !!search ? { [category as string]: search } : {},
+      { page: Number(currentPage), ...pageOption }
+    );
+    // const coupons = await Coupon.aggregate([
+    //   {
+    //     $match: searching,
+    //   },
+    //   {
+    //     $project: {
+    //       name: 1,
+    //       phone: 1,
+    //       couponId: 1,
+    //       createdAt: {
+    //         $dateToString: {
+    //           format: "%Y/%m/%d %H:%M",
+    //           date: "$createdAt",
+    //         },
+    //       },
+    //     },
+    //   },
+    // ]);
 
     res.status(200).send(coupons);
   } catch (err) {
