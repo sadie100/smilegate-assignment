@@ -12,10 +12,22 @@ const Management = () => {
     dispatch,
   } = useContext(CouponContext);
 
+  const makeSample = async () => {
+    try {
+      const res = await axios.post("http://localhost:8000/api/sample");
+      if (res.status === 200) {
+        dispatch({ type: "CURPAGE_UPDATE", payload: 1 });
+      }
+    } catch (e: unknown) {
+      console.log(e);
+      alert("오류가 발생했습니다.");
+    }
+  };
   return (
     <div className="flex min-h-screen flex-col gap-5 items-center bg-white">
       <Header>쿠폰 관리 페이지</Header>
       <Link href="/">뒤로 가기</Link>
+      <button onClick={makeSample}>샘플 만들기</button>
       <CouponProvider>
         <div className="flex min-h-screen flex-col gap-5 w-[80%]">
           <SearchForm />

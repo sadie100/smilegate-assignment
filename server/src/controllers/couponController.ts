@@ -20,6 +20,19 @@ const generateCouponId = (name: string, phone: string) => {
   return couponId;
 };
 
+const generateUniqueNumbers = (length: number, numbers: string[]) => {
+  let number;
+  while (true) {
+    number = Math.floor(Math.random() * Math.pow(10, length))
+      .toString()
+      .padStart(length, "0");
+    if (!numbers.includes(number)) {
+      break;
+    }
+  }
+  return number;
+};
+
 export const reserve = async (req: Request, res: Response) => {
   //logic
   try {
@@ -90,6 +103,32 @@ export const search = async (req: Request, res: Response) => {
     // ]);
 
     res.status(200).send(coupons);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+};
+
+export const makeSample = async (req: Request, res: Response) => {
+  //logic
+  try {
+    console.log("들어옴");
+    const phoneNums: string[] = [];
+    const couponNums: string[] = [];
+
+    for (let i = 0; i < 1000; i++) {
+      const newPhone = `010${generateUniqueNumbers(8, phoneNums)}`;
+      const newCoupon = generateUniqueNumbers(12, couponNums);
+      await Coupon.create({
+        name: `홍길동_${i}`,
+        phone: newPhone,
+        couponId: newCoupon,
+        createdAt: new Date(),
+      });
+      phoneNums.push(newPhone);
+      couponNums.push(newCoupon);
+    }
+    res.status(200).end();
   } catch (err) {
     console.log(err);
     res.status(500).send(err);

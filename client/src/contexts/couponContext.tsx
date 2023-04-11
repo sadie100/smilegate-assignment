@@ -37,7 +37,7 @@ type ActionType =
       type: "CATEGORY_UPDATE";
       payload: "name" | "phone";
     }
-  | { type: "PAGE_UPDATE"; payload: number }
+  | { type: "CURPAGE_UPDATE"; payload: number }
   | { type: "TOTALPAGE_UPDATE"; payload: number };
 
 const reducer = (
@@ -60,7 +60,7 @@ const reducer = (
         ...state,
         category: action.payload,
       };
-    case "PAGE_UPDATE":
+    case "CURPAGE_UPDATE":
       return {
         ...state,
         currentPage: action.payload,
