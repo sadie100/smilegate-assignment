@@ -55,7 +55,7 @@ const Reservation = () => {
 
   return (
     <div className="flex min-h-screen flex-col gap-5 items-center bg-white">
-      <Header>스마일게이트 게임 사전 예약</Header>
+      <Header text="스마일게이트 게임 사전 예약" />
       <Button
         text="사전예약 쿠폰 발급하기"
         handleClick={handleOpen}

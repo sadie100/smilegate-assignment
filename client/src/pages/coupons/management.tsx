@@ -25,7 +25,7 @@ const Management = () => {
   };
   return (
     <div className="flex min-h-screen flex-col gap-5 items-center bg-white">
-      <Header>쿠폰 관리 페이지</Header>
+      <Header text="쿠폰 관리 페이지" />
       <Link href="/">뒤로 가기</Link>
       <button onClick={makeSample}>샘플 만들기</button>
       <CouponProvider>
