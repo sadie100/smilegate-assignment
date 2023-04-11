@@ -11,7 +11,7 @@ const SearchForm = () => {
   const handleSearch = (data: any) => {
     const { searchStr } = data;
     dispatch({
-      type: "setSearch",
+      type: "SEARCH_UPDATE",
       payload: searchStr,
     });
   };

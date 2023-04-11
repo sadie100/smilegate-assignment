@@ -1,12 +1,19 @@
 import { useContext } from "react";
 import { CouponContext } from "@/contexts/couponContext";
 
+const PAGE_MAX = 10;
+
+const normalPageClass =
+  "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white";
+const currentPageClass =
+  "z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white";
+
 const CouponTable = () => {
   const {
-    state: { search, data },
+    state: { search, data, currentPage, totalPage },
     dispatch,
   } = useContext(CouponContext);
-  console.log(data);
+
   return (
     <div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
@@ -70,47 +77,44 @@ const CouponTable = () => {
               </svg>
             </a>
           </li>
-          <li>
-            <a
-              href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              ...
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              100
-            </a>
-          </li>
+          {totalPage <= PAGE_MAX
+            ? Array.from({ length: totalPage }, (_, index) => index + 1).map(
+                (page, idx) => {
+                  return (
+                    <li>
+                      <a
+                        href="#"
+                        className={
+                          currentPage === page
+                            ? currentPageClass
+                            : normalPageClass
+                        }
+                      >
+                        {page}
+                      </a>
+                    </li>
+                  );
+                }
+              )
+            : Array.from(
+                { length: PAGE_MAX },
+                (_, index) => currentPage - (PAGE_MAX - index)
+              ).map((page, idx) => {
+                return (
+                  <li>
+                    <a
+                      href="#"
+                      className={
+                        currentPage === page
+                          ? currentPageClass
+                          : normalPageClass
+                      }
+                    >
+                      {page}
+                    </a>
+                  </li>
+                );
+              })}
           <li>
             <a
               href="#"

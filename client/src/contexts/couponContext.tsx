@@ -11,37 +11,64 @@ interface ICoupon {
 interface InitialStateType {
   data: ICoupon[];
   search: string;
+  category: "name" | "phone";
+  currentPage: number;
+  totalPage: number;
 }
 
 const initialState: InitialStateType = {
   data: [],
   search: "",
+  category: "name",
+  currentPage: 1,
+  totalPage: 1,
 };
 
 type ActionType =
   | {
-      type: "setSearch";
+      type: "SEARCH_UPDATE";
       payload: string;
     }
   | {
-      type: "setData";
+      type: "DATA_UPDATE";
       payload: ICoupon[];
-    };
+    }
+  | {
+      type: "CATEGORY_UPDATE";
+      payload: "name" | "phone";
+    }
+  | { type: "PAGE_UPDATE"; payload: number }
+  | { type: "TOTALPAGE_UPDATE"; payload: number };
 
 const reducer = (
   state: InitialStateType,
   action: ActionType
 ): InitialStateType => {
   switch (action.type) {
-    case "setSearch":
+    case "SEARCH_UPDATE":
       return {
         ...state,
         search: action.payload,
       };
-    case "setData":
+    case "DATA_UPDATE":
       return {
         ...state,
         data: action.payload,
+      };
+    case "CATEGORY_UPDATE":
+      return {
+        ...state,
+        category: action.payload,
+      };
+    case "PAGE_UPDATE":
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
+    case "TOTALPAGE_UPDATE":
+      return {
+        ...state,
+        totalPage: action.payload,
       };
     default:
       return state;
@@ -60,15 +87,21 @@ export const CouponContext = createContext<ContextType>({
 
 export const CouponProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { search, category, currentPage } = state;
 
   const handleSearch = async () => {
     try {
       const res = await axios.get("http://localhost:8000/api/search", {
-        params: state.search,
+        params: {
+          search,
+          category,
+          currentPage,
+        },
       });
-      const datas = res.data;
+      const { docs, totalPages } = res.data;
       if (res.status === 200) {
-        dispatch({ type: "setData", payload: datas });
+        dispatch({ type: "DATA_UPDATE", payload: docs });
+        dispatch({ type: "TOTALPAGE_UPDATE", payload: totalPages });
       }
     } catch (e: unknown) {
       if (e instanceof AxiosError && e.response && e.response.data) {
@@ -84,7 +117,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
     (async () => {
       await handleSearch();
     })();
-  }, [state.search]);
+  }, [search, category, currentPage]);
 
   return (
     <CouponContext.Provider value={{ state, dispatch }}>
