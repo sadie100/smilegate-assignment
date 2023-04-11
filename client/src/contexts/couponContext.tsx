@@ -5,6 +5,7 @@ interface ICoupon {
   name: string;
   phone: string;
   couponId: string;
+  createdAt: string;
 }
 
 interface InitialStateType {

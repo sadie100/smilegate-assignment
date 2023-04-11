@@ -59,8 +59,24 @@ export const search = async (req: Request, res: Response) => {
   try {
     const searching = req.query;
 
-    console.log(searching);
-    const coupons = await Coupon.find(searching).exec();
+    const coupons = await Coupon.aggregate([
+      {
+        $match: searching,
+      },
+      {
+        $project: {
+          name: 1,
+          phone: 1,
+          couponId: 1,
+          createdAt: {
+            $dateToString: {
+              format: "%Y/%m/%d %H:%M",
+              date: "$createdAt",
+            },
+          },
+        },
+      },
+    ]);
 
     res.status(200).send(coupons);
   } catch (err) {
