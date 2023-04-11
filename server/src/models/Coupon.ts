@@ -22,7 +22,12 @@ const CouponSchema: Schema = new Schema(
           .replace(/(\-{1,2})$/g, ""),
       set: (data: string) => data.replaceAll("-", ""),
     },
-    couponId: { type: String, required: true },
+    couponId: {
+      type: String,
+      required: true,
+      get: (data: string) =>
+        data.replace(/^(\d{0,4})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3"),
+    },
   },
   {
     timestamps: true,
