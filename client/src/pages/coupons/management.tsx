@@ -2,7 +2,6 @@ import { useContext } from "react";
 import SearchForm from "@/components/pages/couponManage/SearchForm";
 import Header from "@/components/common/Header";
 import CouponTable from "@/components/pages/couponManage/CouponTable";
-import axios, { AxiosError } from "axios";
 import { CouponContext, CouponProvider } from "@/contexts/couponContext";
 import SampleButton from "@/components/pages/couponManage/SampleButton";
 
