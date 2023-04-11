@@ -66,6 +66,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
       const res = await axios.get("http://localhost:8000/api/search", {
         params: state.search,
       });
+      console.log("결과", res);
       const datas = res.data;
       if (res.status === 200) {
         dispatch({ type: "setData", payload: datas });

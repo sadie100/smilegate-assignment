@@ -61,7 +61,9 @@ export const search = async (req: Request, res: Response) => {
     const searching = req.query;
 
     console.log(searching);
-    res.status(200).end();
+    const coupons = await Coupon.find(searching).exec();
+
+    res.status(200).send(coupons);
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
