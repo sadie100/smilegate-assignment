@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Header from "@/components/common/Header";
 import Button from "@/components/common/Button";
 import { useContext } from "react";
@@ -61,7 +60,6 @@ const Reservation = () => {
         handleClick={handleOpen}
         width="15rem"
       />
-      <Link href="/">뒤로 가기</Link>
     </div>
   );
 };

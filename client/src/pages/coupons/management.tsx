@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import SearchForm from "@/components/pages/couponManage/SearchForm";
 import Header from "@/components/common/Header";
-import Link from "next/link";
 import CouponTable from "@/components/pages/couponManage/CouponTable";
 import axios, { AxiosError } from "axios";
 import { CouponContext, CouponProvider } from "@/contexts/couponContext";
@@ -26,7 +25,6 @@ const Management = () => {
   return (
     <div className="flex min-h-screen flex-col gap-5 items-center bg-white">
       <Header text="쿠폰 관리 페이지" />
-      <Link href="/">뒤로 가기</Link>
       <button onClick={makeSample}>샘플 만들기</button>
       <CouponProvider>
         <div className="flex min-h-screen flex-col gap-5 w-[80%]">
