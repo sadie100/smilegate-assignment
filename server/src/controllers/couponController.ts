@@ -1,36 +1,12 @@
 import { Request, Response } from "express";
 import Coupon from "../models/Coupon";
-import { createHash } from "crypto";
+import { generateCouponId, generateUniqueNumbers } from "../lib";
 
 const pageOption = {
   limit: 10,
   collation: {
     locale: "ko",
   },
-};
-
-const generateCouponId = (name: string, phone: string) => {
-  // const dateStr = Date.now().toString();
-  const baseData = `${name}${phone}`;
-  const hash = createHash("sha256").update(baseData).digest("hex");
-  const couponId = parseInt(hash.slice(0, 12), 16)
-    .toString()
-    .padStart(12, "0")
-    .slice(0, 12);
-  return couponId;
-};
-
-const generateUniqueNumbers = (length: number, numbers: string[]) => {
-  let number;
-  while (true) {
-    number = Math.floor(Math.random() * Math.pow(10, length))
-      .toString()
-      .padStart(length, "0");
-    if (!numbers.includes(number)) {
-      break;
-    }
-  }
-  return number;
 };
 
 export const reserve = async (req: Request, res: Response) => {
@@ -81,26 +57,11 @@ export const search = async (req: Request, res: Response) => {
 
     const coupons = await Coupon.paginate(
       !!search ? { [category as string]: search } : {},
-      { page: Number(currentPage), ...pageOption }
+      {
+        ...pageOption,
+        page: Number(currentPage),
+      }
     );
-    // const coupons = await Coupon.aggregate([
-    //   {
-    //     $match: searching,
-    //   },
-    //   {
-    //     $project: {
-    //       name: 1,
-    //       phone: 1,
-    //       couponId: 1,
-    //       createdAt: {
-    //         $dateToString: {
-    //           format: "%Y/%m/%d %H:%M",
-    //           date: "$createdAt",
-    //         },
-    //       },
-    //     },
-    //   },
-    // ]);
 
     res.status(200).send(coupons);
   } catch (err) {
@@ -112,11 +73,10 @@ export const search = async (req: Request, res: Response) => {
 export const makeSample = async (req: Request, res: Response) => {
   //logic
   try {
-    console.log("들어옴");
     const phoneNums: string[] = [];
     const couponNums: string[] = [];
-
-    for (let i = 0; i < 1000; i++) {
+    const nextNum = (await Coupon.count()) + 1;
+    for (let i = nextNum; i < nextNum + 50; i++) {
       const newPhone = `010${generateUniqueNumbers(8, phoneNums)}`;
       const newCoupon = generateUniqueNumbers(12, couponNums);
       await Coupon.create({

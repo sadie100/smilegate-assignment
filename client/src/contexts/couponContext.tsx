@@ -5,7 +5,7 @@ interface ICoupon {
   name: string;
   phone: string;
   couponId: string;
-  createdAt: string;
+  createdAtFormat: string;
 }
 
 interface InitialStateType {
@@ -104,7 +104,11 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
         dispatch({ type: "TOTALPAGE_UPDATE", payload: totalPages });
       }
     } catch (e: unknown) {
-      if (e instanceof AxiosError && e.response && e.response.data) {
+      if (
+        e instanceof AxiosError &&
+        e.response &&
+        Object.keys(e.response.data).length > 0
+      ) {
         alert(e.response.data);
       } else {
         console.log(e);

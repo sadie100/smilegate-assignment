@@ -6,15 +6,9 @@ import PageNextBtn from "@/components/common/PageNextBtn";
 
 const PAGE_MAX = 10;
 
-const normalPageClass =
-  "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white";
-const currentPageClass =
-  "z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white";
-
 const CouponTable = () => {
   const {
     state: { search, data, currentPage, totalPage },
-    dispatch,
   } = useContext(CouponContext);
 
   return (
@@ -38,7 +32,7 @@ const CouponTable = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map(({ name, phone, couponId, createdAt }, idx) => {
+            {data.map(({ name, phone, couponId, createdAtFormat }, idx) => {
               return (
                 <tr
                   key={idx}
@@ -47,7 +41,7 @@ const CouponTable = () => {
                   <td className="px-6 py-4">{name}</td>
                   <td className="px-6 py-4">{phone}</td>
                   <td className="px-6 py-4">{couponId}</td>
-                  <td className="px-6 py-4">{createdAt}</td>
+                  <td className="px-6 py-4">{createdAtFormat}</td>
                 </tr>
               );
             })}
@@ -63,16 +57,24 @@ const CouponTable = () => {
           {totalPage <= PAGE_MAX
             ? Array.from({ length: totalPage }, (_, index) => index + 1).map(
                 (page, idx) => {
-                  return <PageBtn page={page} />;
+                  return <PageBtn page={page} key={idx} />;
                 }
               )
-            : Array.from({ length: PAGE_MAX }, (_, index) => {
-                if (currentPage <= PAGE_MAX / 2) {
-                  return index + 1;
+            : Array.from(
+                {
+                  length: Math.min(
+                    PAGE_MAX,
+                    PAGE_MAX / 2 + totalPage - currentPage + 1
+                  ),
+                },
+                (_, index) => {
+                  if (currentPage <= PAGE_MAX / 2) {
+                    return index + 1;
+                  }
+                  return currentPage - (PAGE_MAX / 2 - index);
                 }
-                return currentPage - (PAGE_MAX / 2 - index);
-              }).map((page, idx) => {
-                return <PageBtn page={page} />;
+              ).map((page, idx) => {
+                return <PageBtn page={page} key={idx} />;
               })}
           {currentPage < totalPage && <PageNextBtn />}
         </ul>

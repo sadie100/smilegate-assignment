@@ -1,10 +1,13 @@
 import { Schema, model, Document, PaginateModel } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
+import { getFormattedDate } from "../lib";
 
 interface ICoupon extends Document {
   name: string;
   phone: string;
   couponId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const CouponSchema: Schema = new Schema(
@@ -26,13 +29,11 @@ const CouponSchema: Schema = new Schema(
   }
 );
 
-const getFormattedNum = (num: Number) =>
-  num.toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
-
-CouponSchema.virtual("createdAtFormatted").get(function () {
-  return `${this.createdAt.getFullYear()}-${getFormattedNum(this.createdAt.getMonth() + 1)}-${getFormattedNum(this.createdAt.getDate())} ${getFormattedNum(this.createdAt.getHours())}:${getFormattedNum(this.createdAt.getMinutes())}`;
+CouponSchema.virtual("createdAtFormat").get(function () {
+  return getFormattedDate(this.createdAt);
 });
 
 CouponSchema.plugin(mongoosePaginate);
-
+CouponSchema.set("toJSON", { getters: true });
+CouponSchema.set("toObject", { getters: true });
 export default model<ICoupon, PaginateModel<ICoupon>>("Coupon", CouponSchema);
