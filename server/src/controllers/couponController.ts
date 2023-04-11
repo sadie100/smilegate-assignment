@@ -67,7 +67,7 @@ export const search = async (req: Request, res: Response) => {
       {
         ...pageOption,
         sort: { createdAt: -1 },
-        page: Number(currentPage),
+        page: currentPage === "0" ? 1 : Number(currentPage),
       }
     );
 
