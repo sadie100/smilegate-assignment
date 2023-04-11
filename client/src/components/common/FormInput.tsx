@@ -8,7 +8,7 @@ type FormItemType = {
   validation?: RegisterOptions<FieldValues, string> | undefined;
   placeholder?: string;
 };
-const FormItem = ({
+const FormInput = ({
   type,
   name,
   validation,
@@ -39,4 +39,4 @@ const FormItem = ({
   );
 };
 
-export default FormItem;
+export default FormInput;

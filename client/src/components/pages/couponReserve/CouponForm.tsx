@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
-import FormItem from "@/components/common/FormItem";
+import FormInput from "@/components/common/FormInput";
 
 const CouponForm = () => {
   const {
@@ -20,14 +20,14 @@ const CouponForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-stretch items-stretch gap-3 w-full"
       >
-        <FormItem
+        <FormInput
           name="name"
           type="text"
           validation={{ required: "이름을 입력해 주세요." }}
           label="이름"
           placeholder="이름을 입력해 주세요."
         />
-        <FormItem
+        <FormInput
           name="phone"
           type="text"
           validation={{

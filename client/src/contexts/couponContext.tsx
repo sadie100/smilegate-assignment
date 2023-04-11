@@ -11,7 +11,7 @@ interface ICoupon {
 interface InitialStateType {
   data: ICoupon[];
   search: string;
-  category: "name" | "phone";
+  category: "name" | "phone" | "*";
   currentPage: number;
   totalPage: number;
 }
@@ -19,7 +19,7 @@ interface InitialStateType {
 const initialState: InitialStateType = {
   data: [],
   search: "",
-  category: "name",
+  category: "*",
   currentPage: 1,
   totalPage: 1,
 };
@@ -35,7 +35,7 @@ type ActionType =
     }
   | {
       type: "CATEGORY_UPDATE";
-      payload: "name" | "phone";
+      payload: "name" | "phone" | "*";
     }
   | { type: "CURPAGE_UPDATE"; payload: number }
   | { type: "TOTALPAGE_UPDATE"; payload: number };
@@ -121,7 +121,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
     (async () => {
       await handleSearch();
     })();
-  }, [search, category, currentPage]);
+  }, [search, currentPage]);
 
   return (
     <CouponContext.Provider value={{ state, dispatch }}>

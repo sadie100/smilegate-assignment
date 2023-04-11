@@ -19,7 +19,7 @@ export const reserve = async (req: Request, res: Response) => {
       return res
         .status(409)
         .send(
-          `이미 발급된 쿠폰이 있습니다. 발급된 쿠폰 : ${existingCoupon.couponId}`
+          `이미 발급된 쿠폰이 있습니다.\n발급된 쿠폰 : ${existingCoupon.couponId}`
         );
     }
 
@@ -55,10 +55,18 @@ export const search = async (req: Request, res: Response) => {
   try {
     const { search, category, currentPage } = req.query;
 
+    const regex = new RegExp(search as string, "i");
     const coupons = await Coupon.paginate(
-      !!search ? { [category as string]: search } : {},
+      !!search
+        ? category === "*"
+          ? {
+              $or: [{ name: { $regex: regex } }, { phone: { $regex: regex } }],
+            }
+          : { [category as string]: { $regex: regex } }
+        : {},
       {
         ...pageOption,
+        sort: { createdAt: -1 },
         page: Number(currentPage),
       }
     );
