@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import couponRouter from "./routes/couponRouter";
 import cors from "cors";
 import { json } from "body-parser";

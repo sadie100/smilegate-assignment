@@ -1,6 +1,5 @@
-import { Fragment, useRef, useState, useContext } from "react";
+import { Fragment, useRef, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { ModalContext } from "@/contexts/modalContext";
 
 export default () => {

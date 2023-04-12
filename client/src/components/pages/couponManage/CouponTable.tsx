@@ -8,7 +8,7 @@ const PAGE_MAX = 10;
 
 const CouponTable = () => {
   const {
-    state: { search, data, currentPage, totalPage },
+    state: { data, currentPage, totalPage },
   } = useContext(CouponContext);
 
   return (

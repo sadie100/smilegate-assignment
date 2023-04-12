@@ -11,7 +11,7 @@ type ReservationType = {
 };
 
 const Reservation = () => {
-  const { state, dispatch } = useContext(ModalContext);
+  const { dispatch } = useContext(ModalContext);
   const handleReserve = async (data: ReservationType) => {
     try {
       const res = await axios.post("http://localhost:8000/api/reserve", data);

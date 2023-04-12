@@ -4,10 +4,7 @@ import axios from "axios";
 import Button from "@/components/common/Button";
 
 const SampleButton = () => {
-  const {
-    state: { search },
-    dispatch,
-  } = useContext(CouponContext);
+  const { dispatch } = useContext(CouponContext);
 
   const makeSample = async () => {
     try {

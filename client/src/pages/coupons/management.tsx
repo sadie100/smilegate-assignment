@@ -1,8 +1,7 @@
-import { useContext } from "react";
 import SearchForm from "@/components/pages/couponManage/SearchForm";
 import Header from "@/components/common/Header";
 import CouponTable from "@/components/pages/couponManage/CouponTable";
-import { CouponContext, CouponProvider } from "@/contexts/couponContext";
+import { CouponProvider } from "@/contexts/couponContext";
 import SampleButton from "@/components/pages/couponManage/SampleButton";
 
 const Management = () => {
