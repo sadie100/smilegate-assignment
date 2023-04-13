@@ -49,6 +49,7 @@ const reducer = (
       return {
         ...state,
         search: action.payload,
+        currentPage: 1,
       };
     case "DATA_UPDATE":
       return {
