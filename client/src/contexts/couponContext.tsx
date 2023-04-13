@@ -91,7 +91,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
 
   const handleSearch = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/search", {
+      const res = await axios.get("http://localhost:8000/api/coupon", {
         params: {
           search,
           category,

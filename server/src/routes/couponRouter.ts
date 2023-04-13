@@ -4,8 +4,8 @@ import { search } from "../controllers/couponController";
 
 const router = express.Router();
 
-router.post("/reserve", reserve);
-router.get("/search", search);
-router.post("/sample", makeSample);
+router.post("/coupon", reserve);
+router.get("/coupon", search);
+router.post("/coupon-samples", makeSample);
 
 export default router;

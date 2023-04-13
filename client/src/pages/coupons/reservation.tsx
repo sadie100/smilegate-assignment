@@ -14,7 +14,7 @@ const Reservation = () => {
   const { dispatch } = useContext(ModalContext);
   const handleReserve = async (data: ReservationType) => {
     try {
-      const res = await axios.post("http://localhost:8000/api/reserve", data);
+      const res = await axios.post("http://localhost:8000/api/coupon", data);
       const { couponId } = res.data;
       if (res.status === 200) {
         alert(`쿠폰 발급이 완료되었습니다.\n발급된 쿠폰 : ${couponId}`);

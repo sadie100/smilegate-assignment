@@ -8,7 +8,7 @@ const SampleButton = () => {
 
   const makeSample = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/api/sample");
+      const res = await axios.post("http://localhost:8000/api/coupon-samples");
       if (res.status === 200) {
         alert("샘플 데이터가 생성되었습니다.");
         dispatch({ type: "CURPAGE_UPDATE", payload: 0 });
